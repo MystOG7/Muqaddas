@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Surprise</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #fffacd, #ffffe0, #f0e68c);
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(255, 255, 224, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        h1, h2 {
+            color: #b8860b;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .question {
+            display: none;
+        }
+        .question.active {
+            display: block;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .options {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .option-wrapper {
+            position: relative;
+            margin: 10px;
+        }
+        button {
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            animation: wiggle 2s infinite;
+        }
+        @keyframes wiggle {
+            0%, 7% { transform: rotateZ(0); }
+            15% { transform: rotateZ(-15deg); }
+            20% { transform: rotateZ(10deg); }
+            25% { transform: rotateZ(-10deg); }
+            30% { transform: rotateZ(6deg); }
+            35% { transform: rotateZ(-4deg); }
+            40%, 100% { transform: rotateZ(0); }
+        }
+        button:hover {
+            background: #ffeb3b;
+            transform: scale(1.05);
+        }
+        button.teleport {
+            position: absolute;
+            animation: teleport 0.5s ease-in-out;
+        }
+        @keyframes teleport {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(100px, 100px); }
+            50% { transform: translate(-100px, -100px); }
+            75% { transform: translate(200px, -200px); }
+            100% { transform: translate(0, 0); }
+        }
+        .message {
+            white-space: pre-line;
+            font-style: italic;
+            line-height: 1.6;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .heart {
+            color: #ffd700;
+            font-size: 50px;
+            animation: beat 1s infinite;
+        }
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .floating-heart {
+            position: absolute;
+            font-size: 24px;
+            color: #ff69b4;
+            animation: float 6s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts">
+        <div class="floating-heart" style="left: 10%; animation-delay: 0s;">💖</div>
+        <div class="floating-heart" style="left: 20%; animation-delay: 1s;">💕</div>
+        <div class="floating-heart" style="left: 30%; animation-delay: 2s;">❤️</div>
+        <div class="floating-heart" style="left: 40%; animation-delay: 3s;">💗</div>
+        <div class="floating-heart" style="left: 50%; animation-delay: 4s;">💓</div>
+        <div class="floating-heart" style="left: 60%; animation-delay: 5s;">💞</div>
+        <div class="floating-heart" style="left: 70%; animation-delay: 6s;">💘</div>
+        <div class="floating-heart" style="left: 80%; animation-delay: 7s;">💝</div>
+        <div class="floating-heart" style="left: 90%; animation-delay: 8s;">💟</div>
+    </div>
+    <div class="container">
+        <!-- Question 1 -->
+        <div class="question active" id="q1">
+            <h1>💕 Pyaar se Kissi Do Warna msg ni khulega 💕</h1>
+            <div class="options">
+                <div class="option-wrapper">
+                    <button id="ni-deni">Ni Deni</button>
+                </div>
+                <div class="option-wrapper">
+                    <button id="mwahh">Mwahh 😽</button>
+                </div>
+            </div>
+        </div>
+        <!-- Question 2 -->
+        <div class="question" id="q2">
+            <h2>Who's my Good Girl?</h2>
+            <div class="options">
+                <div class="option-wrapper">
+                    <button id="me-good">Me</button>
+                </div>
+                <div class="option-wrapper">
+                    <button id="pata-nahi">Pata nahi 😾</button>
+                </div>
+            </div>
+        </div>
+        <!-- Question 3 -->
+        <div class="question" id="q3">
+            <h2>What's my favt meal?</h2>
+            <div class="options">
+                <div class="option-wrapper">
+                    <button id="me-meal">Me</button>
+                </div>
+                <div class="option-wrapper">
+                    <button id="khana">Khana</button>
+                </div>
+            </div>
+        </div>
+        <!-- Question 4 -->
+        <div class="question" id="q4">
+            <h2>Who Loves you the most?</h2>
+            <div class="options">
+                <div class="option-wrapper">
+                    <button id="arham1">Arham</button>
+                </div>
+                <div class="option-wrapper">
+                    <button id="arham2">Arham</button>
+                </div>
+            </div>
+        </div>
+        <!-- Question 5 -->
+        <div class="question" id="q5">
+            <h2>Are you ready?</h2>
+            <div class="options">
+                <div class="option-wrapper">
+                    <button id="yes">Yes</button>
+                </div>
+                <div class="option-wrapper">
+                    <button id="no">No</button>
+                </div>
+            </div>
+        </div>
+        <!-- Final Message -->
+        <div class="question" id="final">
+            <div class="heart">❤️</div>
+            <h2>Your Message:</h2>
+            <p class="message">Jaan yoon ap naraz hue yoon mera dil udaas hogya 
+Har pal apki muskaan yaad aati hai aur dil bechain rehta hai
+Maaf kar do mujhe meri jaan
+Bas ek baar ap muskurado aur mera din kudh ba kudh roshan hojayega Meri duniya sirf apki khushi ke liye hai
+Har soch, har saans sirf apke saath guzarne ke liye Muje apse bohat shiddat se pyaar hai itna ki agr me likhne bethu tho shayad Mukammal hi na kar saku..
+Jaan ab muskurake ik acchi se kissi dedo mera dil khush hojayega..</p>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+
+        function showQuestion(num) {
+            document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+            document.getElementById('q' + num).classList.add('active');
+            currentQuestion = num;
+        }
+
+        function teleportButton(button) {
+            const container = document.querySelector('.container');
+            const rect = container.getBoundingClientRect();
+            const buttonWidth = button.offsetWidth;
+            const buttonHeight = button.offsetHeight;
+            const maxX = rect.width - buttonWidth;
+            const maxY = rect.height - buttonHeight;
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            button.style.position = 'absolute';
+            button.style.left = x + 'px';
+            button.style.top = y + 'px';
+            button.classList.add('teleport');
+            setTimeout(() => button.classList.remove('teleport'), 500);
+        }
+
+        document.getElementById('ni-deni').addEventListener('click', () => {
+            teleportButton(document.getElementById('ni-deni'));
+        });
+
+        document.getElementById('mwahh').addEventListener('click', () => {
+            showQuestion(2);
+        });
+
+        document.getElementById('pata-nahi').addEventListener('click', () => {
+            teleportButton(document.getElementById('pata-nahi'));
+        });
+
+        document.getElementById('me-good').addEventListener('click', () => {
+            showQuestion(3);
+        });
+
+        document.getElementById('khana').addEventListener('click', () => {
+            teleportButton(document.getElementById('khana'));
+        });
+
+        document.getElementById('me-meal').addEventListener('click', () => {
+            showQuestion(4);
+        });
+
+        document.getElementById('arham1').addEventListener('click', () => {
+            showQuestion(5);
+        });
+
+        document.getElementById('arham2').addEventListener('click', () => {
+            showQuestion(5);
+        });
+
+        document.getElementById('no').addEventListener('click', () => {
+            teleportButton(document.getElementById('no'));
+        });
+
+        document.getElementById('yes').addEventListener('click', () => {
+            showQuestion('final');
+        });
+    </script>
+</body>
+</html>
